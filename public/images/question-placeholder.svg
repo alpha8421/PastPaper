@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Question placeholder</title>
+  <desc id="desc">Placeholder illustration for a Cambridge question image.</desc>
+  <rect width="1200" height="1600" fill="#0f172a" />
+  <rect x="80" y="80" width="1040" height="1440" rx="24" fill="#ffffff" opacity="0.08" />
+  <text x="600" y="720" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700">Official Question Image</text>
+  <text x="600" y="820" text-anchor="middle" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="36">Topical Cambridge</text>
+  <rect x="220" y="980" width="760" height="210" rx="18" fill="#ffffff" opacity="0.12" />
+  <text x="600" y="1088" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32">Local placeholder asset</text>
+  <text x="600" y="1142" text-anchor="middle" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="24">No external hostname dependency</text>
+</svg>

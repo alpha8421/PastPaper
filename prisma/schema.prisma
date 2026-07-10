@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subject {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  name        String
+  slug        String    @unique
+  description String?
+  topics      Topic[]
+  questions   Question[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Topic {
+  id          Int        @id @default(autoincrement())
+  subjectId   Int
+  subject     Subject    @relation(fields: [subjectId], references: [id])
+  code        String
+  name        String
+  slug        String
+  description String?
+  subtopics   Subtopic[]
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@unique([subjectId, slug])
+}
+
+model Subtopic {
+  id          Int        @id @default(autoincrement())
+  topicId     Int
+  topic       Topic      @relation(fields: [topicId], references: [id])
+  code        String?
+  name        String
+  slug        String
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@unique([topicId, slug])
+}
+
+model Session {
+  id          Int        @id @default(autoincrement())
+  code        String     @unique
+  label       String
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Year {
+  id          Int        @id @default(autoincrement())
+  value       Int        @unique
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Paper {
+  id          Int        @id @default(autoincrement())
+  code        String     @unique
+  label       String
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Variant {
+  id          Int        @id @default(autoincrement())
+  code        String     @unique
+  label       String
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Question {
+  id            Int          @id @default(autoincrement())
+  subjectId     Int
+  subject       Subject      @relation(fields: [subjectId], references: [id])
+  topicId       Int
+  topic         Topic        @relation(fields: [topicId], references: [id])
+  subtopicId    Int?
+  subtopic      Subtopic?    @relation(fields: [subtopicId], references: [id])
+  sessionId     Int
+  session       Session      @relation(fields: [sessionId], references: [id])
+  yearId        Int
+  year          Year         @relation(fields: [yearId], references: [id])
+  paperId       Int
+  paper         Paper        @relation(fields: [paperId], references: [id])
+  variantId     Int
+  variant       Variant      @relation(fields: [variantId], references: [id])
+  questionNumber Int
+  marks         Int
+  canonicalKey  String       @unique
+  questionImage QuestionImage?
+  markScheme    MarkScheme?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([subjectId, topicId, sessionId, yearId])
+  @@index([paperId, variantId, questionNumber])
+  @@index([marks])
+}
+
+model QuestionImage {
+  id          Int      @id @default(autoincrement())
+  questionId  Int      @unique
+  question    Question @relation(fields: [questionId], references: [id])
+  url         String
+  storageKey  String   @unique
+  mimeType    String
+  width       Int?
+  height      Int?
+  checksum    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MarkScheme {
+  id          Int      @id @default(autoincrement())
+  questionId  Int      @unique
+  question    Question @relation(fields: [questionId], references: [id])
+  url         String
+  storageKey  String   @unique
+  mimeType    String
+  checksum    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

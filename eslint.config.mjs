@@ -26,6 +26,12 @@ export default [
         URL: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
+        fetch: 'readonly',
+        FormData: 'readonly',
+        Blob: 'readonly',
+        File: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
       },
     },
     plugins: {
